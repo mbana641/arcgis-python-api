@@ -27,7 +27,8 @@ RUN conda install -n ${env_name} -c conda-forge gdal=${gdal_version} -y --quiet 
 
 # Install ArcGIS API for Python from pypi
 RUN . activate ${env_name} \
-    && python -m pip install arcgis==${arcgis_version} \
+    # adding .* ensures the latest patch version is installed
+    && python -m pip install "arcgis==${arcgis_version}.*" \
     && conda clean --all -f -y \
     && find /opt/conda -name __pycache__ -type d -exec rm -rf {} +
 
